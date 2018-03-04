@@ -1,0 +1,109 @@
+var md = window.markdownit({langPrefix:'javascript'}).use(window.markdownitEmoji).use(window.markdownitTaskLists)
+//This is to correct some feature if it doesn't work natively
+//var check = "<input class='task-list-item-checkbox' checked disabled type='checkbox'>"
+//var uncheck = "<input class='task-list-item-checkbox' disabled type='checkbox'>"
+//var mark1 = "[x]"
+//var mark2 = "[ ]"
+//var mark3 = "--"
+var inputText = 
+    "# Examples from Wikipedia ([link](https://en.wikipedia.org/wiki/Markdown))\n" + 
+    "---\n" + 
+
+    "\n" +
+    "Heading\n" +
+    "=======\n" +
+    "\n" +
+    "Sub-heading\n" +
+    "-----------\n" +
+    "\n" +
+    "### Another deeper heading\n" +
+    "\n" +
+    "Paragraphs are separated\n" +
+    "by a blank line.\n" +
+    "\n" +
+    "Leave 2 spaces at the end of a line to do a  \n" +  
+    "line break\n" +
+    "\n" +
+    "Text attributes *italic*, **bold**,\n" +
+    "\`monospace\`, ~~strikethrough~~ .\n\n" +
+    "Shopping list:\n" +
+    "\n" +
+    "* apples\n" +
+    "* oranges\n" +
+    "* pears\n" +
+    "\n" +
+    "Numbered list:\n" +
+    "1. apples\n" +
+    "2. oranges\n" +
+    "3. pears\n" +
+    "\n" +
+    "The rain--not the reign--in\n" +
+    "Spain.\n" +
+    "\n" +
+    "# Emoji\n" +
+    "---\n" +     
+    "> Classic markup: :wink: :cry: :laughing: :yum:" +
+    ":smile: :laughing: :blush: :smiley: :relaxed: :smirk: :heart_eyes: :kissing_heart:" + 
+    ":kissing_closed_eyes: :flushed: :relieved: :satisfied: :grin: :wink: :stuck_out_tongue_winking_eye:\n" + 
+    ">\n" + 
+    "> Shortcuts (emoticons): :-) :-( 8-) ;)\n" +     
+    "# More examples from github ([link](https://help.github.com/articles/basic-writing-and-formatting-syntax/))\n" + 
+    "---\n" +
+    "#### Quoting code:\n" + 
+    "```javascript\n" + 
+    "function thisDoesSomething(toThis){\n" + 
+    "  toThis = something(toThis) \n" + 
+    "  return toThis\n" + 
+    "  } \n" + 
+    "```\n" +
+    "#### Quoting text:\n" +
+    "> Quoting is forbidden!\n\n"  +
+    "#### Nested lists:\n" +    
+    "1. First list item\n" + 
+    "   - First nested list item\n" + 
+    "     - Second nested list item\n\n" +
+    "#### Task lists:\n" +     
+    "- [x] Finish my changes\n" + 
+    "- [ ] Push my commits to GitHub\n" + 
+    "- [ ] Open a pull request\n\n" + 
+    "*[Giuseppe Fragalà](https://freecodecamp.com/giuseppefragala)*";
+
+class Htmlapp extends React.Component {
+  constructor (prop) {
+    super(prop)
+    this.state = {htmlText: inputText}
+    // binding in constructor
+    //as recommended in the React docs
+    //for “better performance in your application”
+    this.handleChange = this.handleChange.bind(this)
+  }
+   
+  
+  handleChange (event) {
+    this.setState({htmlText: event.target.value})
+  }  
+  
+  getText(){
+    //return { __html: md.render(this.state.htmlText).replace(/\[[xX]\]/g,check).replace(/\[ \]/g, uncheck).replace(/--/g,"–")}
+    return { __html: md.render(this.state.htmlText)}
+  }
+  
+  render(){
+    return (
+      <div>
+        <div className="floating-box" id="input">
+          <textarea id="textarea" rows="60" cols="10" onChange={this.handleChange} value={this.state.htmlText}/>
+        </div>
+        <div className="floating-box" id="output" style={{}}>       
+          <div dangerouslySetInnerHTML = {this.getText()} />
+        </div>
+      </div>  
+    )
+  }
+      
+}
+    
+
+  
+ReactDOM.render(<Htmlapp />, document.getElementById('container'))
+

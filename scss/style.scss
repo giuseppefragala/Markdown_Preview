@@ -1,0 +1,26 @@
+
+//let's use map, just for fun
+$width-map: (width35: 35%, width50: 50%, width100: 100%);
+
+@mixin div_prop(){
+  float: left;
+  margin-left: 50px;
+  width:45%;
+}
+
+
+
+#textarea{
+  resize: vertical;
+  width:  map-get($width-map, width100);;
+  height: 100%;
+  font-size: 12px;
+}
+
+#input{
+  @include div_prop();
+}
+
+#output{
+  @include div_prop();
+}

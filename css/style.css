@@ -1,0 +1,18 @@
+#textarea {
+  resize: vertical;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+}
+
+#input {
+  float: left;
+  margin-left: 50px;
+  width: 45%;
+}
+
+#output {
+  float: left;
+  margin-left: 50px;
+  width: 45%;
+}
